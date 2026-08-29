@@ -1,5 +1,5 @@
 /* ==========================================================
-   INFERNIFIED — script.js
+   infernicated — script.js
    All password handling happens locally in the browser.
    The full password is never transmitted, stored, or logged.
    ========================================================== */

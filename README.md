@@ -1,8 +1,8 @@
-# Infernified
+# infernicated
 
 **Privacy-conscious Password Security Analyzer**
 
-Infernified is a client-side password security analyzer designed to help users understand the characteristics and potential exposure of a password.
+infernicated is a client-side password security analyzer designed to help users understand the characteristics and potential exposure of a password.
 
 It evaluates password length, character composition, common patterns, approximate entropy, and known breach exposure. The application does not have a backend or database, and password analysis is performed locally in the browser.
 
@@ -30,7 +30,7 @@ The local analysis does not require an internet connection.
 
 ### Approximate Entropy
 
-Infernified provides an approximate entropy estimate based on password length and the estimated character pool.
+infernicated provides an approximate entropy estimate based on password length and the estimated character pool.
 
 This is intended as an educational indicator rather than a guarantee of password strength.
 
@@ -74,7 +74,7 @@ The complete SHA-1 hash is also not sent.
 
 ### Password Generator
 
-Infernified includes a configurable password generator supporting:
+infernicated includes a configurable password generator supporting:
 
 * Uppercase letters
 * Lowercase letters
@@ -104,7 +104,7 @@ The application uses CSS Grid and responsive CSS to adapt the interface between 
 
 # Privacy & Security
 
-Infernified was designed around minimizing the amount of sensitive information leaving the browser.
+infernicated was designed around minimizing the amount of sensitive information leaving the browser.
 
 ### Password analysis
 
@@ -133,7 +133,7 @@ SHA-1 is not considered a suitable modern algorithm for password storage or othe
 
 It is used here specifically because the Have I Been Pwned Pwned Passwords API uses SHA-1 hashes for its k-anonymity range lookup.
 
-Infernified does **not** use SHA-1 as a password-storage mechanism.
+infernicated does **not** use SHA-1 as a password-storage mechanism.
 
 ### Failure handling
 
@@ -203,7 +203,7 @@ There is:
 # Project Structure
 
 ```text
-infernified/
+infernicated/
 │
 ├── index.html
 ├── style.css
@@ -248,7 +248,7 @@ No build tools are required.
 
 ```bash
 git clone <repository-url>
-cd infernified
+cd infernicated
 ```
 
 ### 2. Run locally
@@ -279,7 +279,7 @@ The breach exposure feature requires internet access to communicate with the Hav
 
 # Limitations
 
-Infernified is an educational project and its results have limitations.
+infernicated is an educational project and its results have limitations.
 
 * The entropy calculation is an approximation.
 * The security score is heuristic rather than a formal security measurement.
@@ -303,7 +303,7 @@ Infernified is an educational project and its results have limitations.
 
 # Security Disclaimer
 
-Infernified provides an **educational estimate** of password strength and known breach exposure.
+infernicated provides an **educational estimate** of password strength and known breach exposure.
 
 A strong score or a negative breach result does not guarantee that a password is secure.
 
