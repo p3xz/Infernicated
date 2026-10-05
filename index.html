@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Infernicated</title>
-<meta name="description" content="infernicated's privacy policy: what data is processed, what isn't, and why." />
+<title>Infernicated — Password Security Analyzer</title>
+<meta name="description" content="Infernicated is a client-side password security analyzer. Check password strength, entropy, patterns, and breach exposure without your password ever leaving the browser." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<a class="skip-link" href="#policy-main">Skip to content</a>
+<a class="skip-link" href="#analyzer">Skip to content</a>
 
 <header class="site-header">
   <div class="header-inner">
@@ -21,9 +21,9 @@
       <span class="wordmark-label">Password Security Analyzer</span>
     </a>
     <nav class="main-nav" aria-label="Primary">
-      <a href="index.html#analyzer">Analyzer</a>
+      <a href="index.html#analyzer" aria-current="page">Analyzer</a>
       <a href="index.html#how-it-works">How It Works</a>
-      <a href="privacy.html" aria-current="page">Privacy</a>
+      <a href="privacy.html">Privacy</a>
       <a href="index.html#credits">Credits</a>
     </nav>
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
@@ -33,293 +33,149 @@
   <nav class="mobile-nav" id="mobileNav" aria-label="Primary mobile">
     <a href="index.html#analyzer">Analyzer</a>
     <a href="index.html#how-it-works">How It Works</a>
-    <a href="privacy.html" aria-current="page">Privacy</a>
+    <a href="privacy.html">Privacy</a>
     <a href="index.html#credits">Credits</a>
   </nav>
 </header>
 
-<main id="policy-main">
+<main>
+  <section class="hero" id="analyzer">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <p class="eyebrow">Client-side password analysis</p>
+        <h1>How strong is your password, really?</h1>
+        <p>Type a password to get an instant, honest report: length and composition, sequential or keyboard patterns, approximate entropy, and whether it has shown up in known breach data. Everything runs in your browser. Nothing is sent, stored, or logged.</p>
 
-  <section class="policy-hero">
-    <div class="policy-inner">
-      <p class="eyebrow">Privacy Policy</p>
-      <h1 class="policy-title">How infernicated handles data</h1>
-      <p class="hero-sub">
-        infernicated is a static, client-side tool. This page describes, in detail
-        and without exaggeration, what happens to information when you use it.
-      </p>
-      <p class="policy-updated">Last updated: <span id="lastUpdated">17 August 2026</span></p>
+        <form class="analyzer-form" id="analyzerForm" autocomplete="off">
+          <div class="password-field">
+            <input
+              type="password"
+              id="passwordInput"
+              name="password"
+              placeholder="Type a password to analyze"
+              autocomplete="off"
+              autocapitalize="off"
+              spellcheck="false"
+              aria-label="Password to analyze"
+            />
+            <button type="button" class="icon-btn" id="toggleVisibility" aria-label="Show password" aria-pressed="false">
+              <svg class="icon-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="icon-eye-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Analyze</button>
+            <button type="button" class="btn-ghost" id="clearBtn">Clear</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="hero-right">
+        <div class="score-panel" id="scorePanel">
+          <p class="score-label">Strength score</p>
+          <div class="score-value-row">
+            <span class="score-value" id="scoreValue">—</span>
+            <span class="score-max">/ 100</span>
+          </div>
+          <div class="score-track" aria-hidden="true">
+            <div class="score-fill" id="scoreFill" style="width: 0%"></div>
+          </div>
+          <p class="score-classification" id="scoreClassification">Awaiting input</p>
+          <p class="score-footnote">Scored from length, character variety, patterns, and common-password checks.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="policy-section">
-    <div class="policy-inner">
+  <section class="report-section" id="report" hidden>
+    <div class="report-inner">
+      <p class="report-label">Full report</p>
+      <p class="report-summary-text" id="reportSummary"></p>
 
-      <nav class="policy-toc" aria-label="On this page">
-        <p class="report-label">On this page</p>
-        <ol>
-          <li><a href="#who-we-are">Who we are</a></li>
-          <li><a href="#what-data">What data is processed</a></li>
-          <li><a href="#why">Why data is processed</a></li>
-          <li><a href="#legal-basis">Legal basis</a></li>
-          <li><a href="#storage">Cookies &amp; browser storage</a></li>
-          <li><a href="#third-parties">Third-party services</a></li>
-          <li><a href="#transfers">International data transfers</a></li>
-          <li><a href="#rights">Your rights</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#changes">Changes to this policy</a></li>
-        </ol>
-      </nav>
-
-      <div class="policy-flag">
-        <p class="report-label">Owner note — not for public deployment as-is</p>
-        <p class="report-text">
-          This policy is accurate to the current codebase, but two fields are
-          placeholders that must be filled in before this project is deployed
-          publicly: the <strong>data controller identity</strong> and the
-          <strong>privacy contact</strong>. Both are marked clearly below.
-        </p>
+      <div class="report-row">
+        <p class="report-label">Composition</p>
+        <dl class="composition-list" id="compositionList"></dl>
       </div>
 
-      <hr class="divider" />
-
-      <h2 id="who-we-are">1. Who we are</h2>
-      <p class="report-text">
-        infernicated is a student-built, open-source project. The codebase
-        identifies its main author as:
-      </p>
-      <ul class="privacy-list">
-        <li>Namish Yadav — Main Author / Lead Developer (GitHub: <a href="https://github.com/p3xz" target="_blank" rel="noopener noreferrer">@p3xz</a>)</li>
-      </ul>
-      <p class="report-text">
-        infernicated is not operated by a registered company or legal entity.
-        No physical business address or corporate registration exists for this
-        project.
-      </p>
-      <p class="policy-placeholder">
-        <strong>Missing information:</strong> if this project is ever deployed
-        under a formal entity (a company, a college department, or similar),
-        the responsible controller's legal name and contact details should
-        replace this section. Until then, the individual author listed above
-        is the closest available point of responsibility.
-      </p>
-
-      <hr class="divider" />
-
-      <h2 id="what-data">2. What data is processed</h2>
-      <p class="report-text">
-        infernicated has no accounts, no backend server, and no database. The
-        table below reflects exactly what the code does, checked directly
-        against the source.
-      </p>
-
-      <div class="policy-table-wrap">
-        <table class="policy-table">
-          <thead>
-            <tr>
-              <th>Data</th>
-              <th>What actually happens</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Password typed into the analyzer</td>
-              <td>Read only in browser memory to calculate a strength score. Never sent anywhere, never written to disk, never logged. Cleared when the page is closed or refreshed.</td>
-            </tr>
-            <tr>
-              <td>Password hash (breach check)</td>
-              <td>Hashed locally with SHA-1. Only the first 5 characters of that hash are sent to the Have I Been Pwned API. The full password and full hash never leave the browser.</td>
-            </tr>
-            <tr>
-              <td>Generated passwords</td>
-              <td>Created locally using the browser's secure random source. Never transmitted or stored.</td>
-            </tr>
-            <tr>
-              <td>IP address / standard request metadata</td>
-              <td>Not read, logged, or stored by infernicated's own code. As with any website, the network infrastructure serving the page (and the Have I Been Pwned API, and the Google Fonts CDN, when contacted) will ordinarily see a visitor's IP address as a normal part of handling an HTTP request — this is outside infernicated's code and depends on where it is hosted. See "Third-party services" below.</td>
-            </tr>
-            <tr>
-              <td>Cookies</td>
-              <td>None are set by infernicated.</td>
-            </tr>
-            <tr>
-              <td>Analytics / tracking</td>
-              <td>None is implemented.</td>
-            </tr>
-            <tr>
-              <td>Accounts, billing, support submissions</td>
-              <td>Not applicable — these features do not exist in infernicated.</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="report-row">
+        <p class="report-label">Patterns</p>
+        <p class="report-text" id="patternText"></p>
       </div>
 
-      <hr class="divider" />
-
-      <h2 id="why">3. Why data is processed</h2>
-      <p class="report-text">
-        Only two purposes exist in the current implementation:
-      </p>
-      <ul class="privacy-list">
-        <li>Performing local password strength analysis, so the tool can show a score and report.</li>
-        <li>Checking a hash prefix against Have I Been Pwned, so the tool can report known breach exposure.</li>
-      </ul>
-      <p class="report-text">
-        There is no purpose related to advertising, profiling, analytics, or
-        resale of data, because none of those mechanisms exist in the code.
-      </p>
-
-      <hr class="divider" />
-
-      <h2 id="legal-basis">4. Legal basis</h2>
-      <p class="report-text">
-        infernicated does not operate accounts, does not require sign-in, and
-        does not knowingly retain personal data after a session ends. Because
-        of that, most GDPR-style legal-basis categories (contract, consent,
-        legal obligation) do not clearly apply, since there is no ongoing
-        processing relationship with a user.
-      </p>
-      <p class="report-text">
-        Where the tool does briefly transmit data (the 5-character hash
-        prefix sent to Have I Been Pwned), the closest applicable basis would
-        be <strong>legitimate interest</strong> — performing the specific
-        function the user actively requested (a breach check they triggered
-        by clicking Analyze).
-      </p>
-      <p class="policy-placeholder">
-        <strong>Flagged for review:</strong> this is a reasonable
-        interpretation, not a legal determination. If infernicated is deployed
-        in a context where GDPR, DPDP, or another privacy law formally
-        applies, the legal basis should be confirmed by someone qualified to
-        assess it against the actual deployment and jurisdiction, rather than
-        relying on this description alone.
-      </p>
-
-      <hr class="divider" />
-
-      <h2 id="storage">5. Cookies &amp; browser storage</h2>
-      <p class="report-text">
-        infernicated does not use cookies, localStorage, sessionStorage, or
-        IndexedDB. This was verified directly against the source code, not
-        assumed. No consent banner is shown, because there is nothing
-        non-essential to consent to — adding one would misrepresent what the
-        site actually does.
-      </p>
-
-      <hr class="divider" />
-
-      <h2 id="third-parties">6. Third-party services</h2>
-      <p class="report-text">
-        infernicated's own code makes requests to exactly two external
-        services. No others are contacted by the application.
-      </p>
-
-      <div class="policy-table-wrap">
-        <table class="policy-table">
-          <thead>
-            <tr>
-              <th>Service</th>
-              <th>Purpose</th>
-              <th>What it may process</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Have I Been Pwned — Pwned Passwords API (api.pwnedpasswords.com)</td>
-              <td>Breach exposure check, only when the user clicks Analyze</td>
-              <td>A 5-character hash prefix, and standard request metadata (such as IP address) as seen by any web request. Never the password or full hash.</td>
-            </tr>
-            <tr>
-              <td>Google Fonts (fonts.googleapis.com, fonts.gstatic.com)</td>
-              <td>Loading the Inter and IBM Plex Mono typefaces</td>
-              <td>Standard request metadata (such as IP address and browser information) as seen by any font file request. No password-related data is sent to this service.</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="report-row">
+        <p class="report-label">Entropy</p>
+        <p class="report-text" id="entropyText"></p>
       </div>
 
-      <p class="policy-placeholder">
-        <strong>Missing information:</strong> the hosting provider or CDN used
-        to serve infernicated itself is not yet determined (this depends on
-        where the project is deployed — GitHub Pages, Netlify, Vercel, etc.).
-        Whoever hosts the static files will also see standard visitor request
-        data as an ordinary function of serving a website. This section
-        should be updated with the actual hosting provider once deployment is
-        finalized.
-      </p>
+      <div class="report-row">
+        <p class="report-label">Breach exposure</p>
+        <p class="report-status" id="exposureStatus"></p>
+        <p class="report-text-sub" id="exposureNote"></p>
+      </div>
 
-      <hr class="divider" />
+      <div class="report-row">
+        <p class="report-label">Recommendation</p>
+        <p class="report-text" id="recommendationText"></p>
+      </div>
 
-      <h2 id="transfers">7. International data transfers</h2>
-      <p class="report-text">
-        Have I Been Pwned and Google Fonts both operate global infrastructure,
-        which may mean requests are processed outside a visitor's own
-        country. infernicated's code does not control or configure this — it
-        is a property of using those third-party services.
-      </p>
-      <p class="policy-placeholder">
-        <strong>Flagged for review:</strong> a precise international-transfer
-        assessment depends on where infernicated itself is hosted and where
-        its visitors are located, which cannot be determined from the static
-        codebase alone. This should be confirmed once hosting is finalized.
-      </p>
-
-      <hr class="divider" />
-
-      <h2 id="rights">8. Your rights</h2>
-      <p class="report-text">
-        Because infernicated does not create accounts and does not knowingly
-        retain personal data after your session, most data-subject rights
-        have limited practical application here — there is typically nothing
-        stored to access, correct, delete, or export. For completeness:
-      </p>
-      <ul class="privacy-list">
-        <li><strong>Access</strong> — infernicated does not retain a record of your password or analysis results after your session ends, so there is nothing on file to request.</li>
-        <li><strong>Correction</strong> — not applicable, for the same reason.</li>
-        <li><strong>Deletion</strong> — not applicable in the ordinary case, since nothing is stored. If you believe any data has been retained in error, contact us using the method below.</li>
-        <li><strong>Objection / restriction</strong> — you can stop using the tool at any time, which stops all processing immediately, since processing only happens while you are actively using the page.</li>
-        <li><strong>Portability</strong> — not applicable, as no ongoing personal data set exists to export.</li>
-      </ul>
-      <p class="report-text">
-        No automated request-handling system exists for these rights. Any
-        request would currently be handled manually by the project's author.
-      </p>
-
-      <hr class="divider" />
-
-      <h2 id="contact">9. Contact</h2>
-      <p class="policy-placeholder">
-        <strong>Missing information:</strong> no privacy contact email exists
-        anywhere in the current codebase or project materials. A real,
-        monitored contact address must be added here before this project is
-        deployed publicly or before this policy is considered complete.
-        Placeholder shown below — replace it.
-      </p>
-      <p class="report-text policy-contact-placeholder">
-        Privacy contact: <code>[ADD A MONITORED CONTACT EMAIL HERE]</code>
-      </p>
-
-      <hr class="divider" />
-
-      <h2 id="changes">10. Changes to this policy</h2>
-      <p class="report-text">
-        If infernicated's functionality changes — for example, if a feature
-        that stores or transmits data is added — this policy should be
-        updated to match before that change is deployed, not after.
-      </p>
-
-      <p class="disclaimer">
-        This policy describes the application as implemented in the source
-        code at the time of writing. It is not a substitute for legal advice.
-        Sections marked "flagged for review" or "missing information" above
-        should be resolved by the project owner (and, where relevant, someone
-        qualified to give legal guidance) before this project handles real
-        user data in a production or public setting.
-      </p>
-
+      <p class="report-footnote">The breach check uses the Have I Been Pwned k-anonymity API: your password is hashed locally and only the first five characters of the hash leave your browser.</p>
     </div>
   </section>
 
+  <section class="policy-section" id="how-it-works">
+    <div class="policy-inner">
+      <p class="section-eyebrow">How it works</p>
+      <h2 class="policy-title">Local first, honest always</h2>
+      <ol class="flow-list">
+        <li><strong>You type.</strong> The password lives only in the input field and in memory while the page is open.</li>
+        <li><strong>It is scored locally.</strong> Length, character pools, repeated runs, sequential and keyboard patterns, and a list of common passwords are all checked in JavaScript, in your browser.</li>
+        <li><strong>Breach exposure uses k-anonymity.</strong> The password is hashed with SHA-1 locally; only the first five hash characters are sent to Have I Been Pwned, and the suffix match happens on your device.</li>
+        <li><strong>Nothing is stored.</strong> No backend, no database, no analytics on what you typed. Close the tab and it is gone.</li>
+      </ol>
+      <p class="disclaimer">A high score means the password is hard to guess, not that it is safe to reuse. Use a unique password for every account, ideally kept in a password manager.</p>
+    </div>
+  </section>
+
+  <section class="generator-section" id="generator">
+    <div class="generator-inner">
+      <p class="section-eyebrow">Password generator</p>
+      <h2 class="policy-title">Need a better one?</h2>
+      <p>Generate a random password locally with <code>crypto.getRandomValues</code>. It never leaves your device.</p>
+
+      <div class="generator-grid">
+        <div class="control-row">
+          <label for="genLength">Length: <span id="genLengthValue">20</span></label>
+          <input type="range" id="genLength" min="8" max="64" value="20" />
+        </div>
+        <div class="control-row control-row--checks">
+          <label class="checkbox"><input type="checkbox" id="genUpper" checked /> Uppercase</label>
+          <label class="checkbox"><input type="checkbox" id="genLower" checked /> Lowercase</label>
+          <label class="checkbox"><input type="checkbox" id="genNumbers" checked /> Numbers</label>
+          <label class="checkbox"><input type="checkbox" id="genSymbols" checked /> Symbols</label>
+        </div>
+        <div class="generated-row">
+          <input type="text" class="generator-output" id="generatedPassword" readonly placeholder="Your generated password appears here" aria-label="Generated password" />
+          <button type="button" class="btn-ghost" id="copyBtn">Copy</button>
+        </div>
+        <p class="copy-feedback" id="copyFeedback" role="status"></p>
+        <div class="form-actions">
+          <button type="button" class="btn-primary" id="generateBtn">Generate</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="credits-section" id="credits">
+    <div class="credits-inner">
+      <p class="section-eyebrow">Credits</p>
+      <div class="credit-main">
+        <p class="credit-name">Namish</p>
+        <p class="credit-role">Designed and built infernicated as a first-year cybersecurity portfolio project.</p>
+      </div>
+      <p class="credits-with">Breach data via the Have I Been Pwned Pwned Passwords API, using k-anonymity so full hashes never leave the browser.</p>
+      <p class="credits-built-by">Find me on <a href="https://github.com/p3xz" target="_blank" rel="noopener noreferrer">GitHub</a>, <a href="https://linkedin.com/in/namish-yadav-639769408" target="_blank" rel="noopener noreferrer">LinkedIn</a>, <a href="https://instagram.com/nam7sh" target="_blank" rel="noopener noreferrer">Instagram</a>, or my <a href="https://namishhh.vercel.app" target="_blank" rel="noopener noreferrer">portfolio</a>.</p>
+    </div>
+  </section>
 </main>
 
 <footer class="site-footer">
