@@ -991,6 +991,18 @@ h1, h2, h3, p { margin: 0; }
 
 .footer-nav a:hover { color: var(--text-primary); }
 
+.footer-socials {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-socials a {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+}
+
+.footer-socials a:hover { color: var(--text-primary); }
+
 .footer-note {
   font-size: 12.5px;
   color: var(--text-tertiary);
