@@ -6,9 +6,13 @@ infernicated is a client-side password security analyzer designed to help users 
 
 It evaluates password length, character composition, common patterns, approximate entropy, and known breach exposure. The application does not have a backend or database, and password analysis is performed locally in the browser.
 
+Built as a personal project to show that useful password analysis does not require sending sensitive input to a server.
+
+Built in August 2026.
+
 The optional breach check uses the **Have I Been Pwned Pwned Passwords API** with its k-anonymity range lookup. The password is hashed locally, and only a five-character prefix of the SHA-1 hash is sent to the API. The returned hash suffixes are compared locally in the browser.
 
----
+***
 
 ## Features
 
@@ -100,7 +104,7 @@ The interface includes:
 
 The application uses CSS Grid and responsive CSS to adapt the interface between desktop and mobile layouts.
 
----
+***
 
 # Privacy & Security
 
@@ -139,7 +143,7 @@ infernicated does **not** use SHA-1 as a password-storage mechanism.
 
 If the breach-check request fails or the API is unavailable, the application reports that the breach check is unavailable rather than treating the password as safe.
 
----
+***
 
 # How It Works
 
@@ -177,18 +181,18 @@ Final security report
 
 The majority of the application works completely offline. An internet connection is only required for the optional breach exposure check.
 
----
+***
 
 # Tech Stack
 
-* **HTML5** — page structure and semantic markup
-* **CSS3** — responsive layout, CSS Grid, custom properties, animations, and styling
-* **Vanilla JavaScript (ES2017+)** — application logic and DOM interaction
-* **Web Crypto API** — cryptographic hashing and secure random number generation
-* **Fetch API** — communication with the HIBP breach-check endpoint
-* **Have I Been Pwned Pwned Passwords API** — breach exposure lookup
-* **Inter** — interface typography
-* **IBM Plex Mono** — monospace/technical typography
+* **HTML5** - page structure and semantic markup
+* **CSS3** - responsive layout, CSS Grid, custom properties, animations, and styling
+* **Vanilla JavaScript (ES2017+)** - application logic and DOM interaction
+* **Web Crypto API** - cryptographic hashing and secure random number generation
+* **Fetch API** - communication with the HIBP breach-check endpoint
+* **Have I Been Pwned Pwned Passwords API** - breach exposure lookup
+* **Inter** - interface typography
+* **IBM Plex Mono** - monospace/technical typography
 
 There is:
 
@@ -198,7 +202,18 @@ There is:
 * No build step
 * No external JavaScript framework dependencies
 
----
+***
+
+# Why This Stack
+
+* **Vanilla JavaScript, no framework** - the app is a single-page analyzer with no routing or state management, so a framework would add build tooling without adding value.
+* **No backend or database** - analysis runs in the browser by design, so there is nothing server-side to host or maintain.
+* **Web Crypto API** - used for SHA-1 hashing and for `crypto.getRandomValues()` in the password generator, so hashing and randomness are handled by the browser's own secure primitives.
+* **Have I Been Pwned API with k-anonymity** - allows an optional breach check where only a five-character hash prefix leaves the browser, keeping the password and its full hash local.
+* **CSS Grid and custom properties** - the responsive desktop and mobile layouts are built with plain CSS, so no UI library is needed.
+* **Inter and IBM Plex Mono** - clean interface typography with a monospace font for technical output like hashes and scores.
+
+***
 
 # Project Structure
 
@@ -238,7 +253,7 @@ Contains the application logic, including:
 * DOM updates
 * Event handling
 
----
+***
 
 # Getting Started
 
@@ -275,7 +290,7 @@ The local password analysis works without an internet connection.
 
 The breach exposure feature requires internet access to communicate with the Have I Been Pwned API.
 
----
+***
 
 # Limitations
 
@@ -288,7 +303,7 @@ infernicated is an educational project and its results have limitations.
 * SHA-1 is used because it is the hash format required by the HIBP Pwned Passwords API, not as a recommendation for password storage.
 * The application is not intended to replace professional security auditing or password-management software.
 
----
+***
 
 # Roadmap
 
@@ -299,7 +314,7 @@ infernicated is an educational project and its results have limitations.
 * [ ] Add a downloadable analysis report
 * [ ] Add a theme toggle while maintaining the existing visual design
 
----
+***
 
 # Security Disclaimer
 
@@ -309,13 +324,13 @@ A strong score or a negative breach result does not guarantee that a password is
 
 The application should not be treated as a professional cybersecurity audit, authentication system, or legal/security advice.
 
----
+***
 
 # Credits
 
 ### Main Author
 
-**Namish Yadav** — Main Author / Lead Developer
+**Namish Yadav** - Main Author / Lead Developer
 
 GitHub: [@p3xz](https://github.com/p3xz)
 
@@ -324,14 +339,14 @@ Instagram: [@nam7sh](https://instagram.com/nam7sh)
 ### Contributors
 
 | Contributor   | Role                         | GitHub                                                 |
-| ------------- | ---------------------------- | ------------------------------------------------------ |
+| - | - | - |
 | Namish Yadav  | Main Author / Lead Developer | [@p3xz](https://github.com/p3xz)       |
 | Harshiv Patel | Co-author / Contributor      | [@Harshiv-6967](https://github.com/Harshiv-6967)       |
 | Lubna Nawaz   | Co-author / Contributor      | [@Lubnanawaz](https://github.com/Lubnanawaz)           |
 | Rushda Khan   | Co-author / Contributor      | [@rushdakhan-byte](https://github.com/rushdakhan-byte) |
 
----
+***
 
 ## License
 
-Add your preferred open-source license here if you intend to distribute the project under one.
+This project is distributed under the MIT License. See the `LICENSE` file for details.
