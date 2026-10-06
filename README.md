@@ -185,6 +185,8 @@ The majority of the application works completely offline. An internet connection
 
 # Tech Stack
 
+![JavaScript](https://skillicons.dev/icons?i=js) ![HTML](https://skillicons.dev/icons?i=html) ![CSS](https://skillicons.dev/icons?i=css)
+
 * **HTML5** - page structure and semantic markup
 * **CSS3** - responsive layout, CSS Grid, custom properties, animations, and styling
 * **Vanilla JavaScript (ES2017+)** - application logic and DOM interaction
