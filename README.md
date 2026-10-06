@@ -1,6 +1,11 @@
-# infernicated
+# Infernicated
 
-**Privacy-conscious Password Security Analyzer**
+> A client-side password security analyzer that evaluates password length, composition, patterns, entropy, and known breach exposure entirely in the browser, built to show that useful password analysis does not require sending sensitive input to a server.
+
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
+
+## About
 
 infernicated is a client-side password security analyzer designed to help users understand the characteristics and potential exposure of a password.
 
@@ -12,101 +17,17 @@ Built in August 2026.
 
 The optional breach check uses the **Have I Been Pwned Pwned Passwords API** with its k-anonymity range lookup. The password is hashed locally, and only a five-character prefix of the SHA-1 hash is sent to the API. The returned hash suffixes are compared locally in the browser.
 
-***
-
 ## Features
 
-### Local Password Analysis
+- **Local password analysis**: evaluates password length, uppercase, lowercase, numbers, symbols, repeated characters, sequential patterns, keyboard-style patterns, and common password matches, all locally with no internet connection required.
+- **Approximate entropy**: estimates entropy based on password length and the estimated character pool, intended as an educational indicator rather than a guarantee of strength.
+- **Security score**: converts several password characteristics into a score from **0–100** with classifications (Very Weak, Weak, Moderate, Strong, Very Strong); the score is a heuristic, not a formal security assessment.
+- **Breach exposure check**: optional lookup against the Have I Been Pwned Pwned Passwords API using k-anonymity; the password is hashed locally and only the first five characters of the SHA-1 hash are sent, with suffix comparison done in the browser.
+- **Password generator**: configurable generator supporting uppercase, lowercase, numbers, symbols, and custom length, using the browser's `crypto.getRandomValues()` API instead of `Math.random()`; generated passwords are not intentionally stored.
+- **Accessibility**: semantic HTML, keyboard navigation, visible focus states, responsive layouts, and reduced-motion support.
+- **Responsive design**: CSS Grid and responsive CSS adapt the interface between desktop and mobile layouts.
 
-The application analyzes a password locally for:
-
-* Password length
-* Uppercase characters
-* Lowercase characters
-* Numbers
-* Symbols
-* Repeated characters
-* Sequential patterns
-* Keyboard-style patterns
-* Common password matches
-
-The local analysis does not require an internet connection.
-
-### Approximate Entropy
-
-infernicated provides an approximate entropy estimate based on password length and the estimated character pool.
-
-This is intended as an educational indicator rather than a guarantee of password strength.
-
-### Security Score
-
-The analyzer converts several password characteristics into a score from **0–100** with classifications:
-
-* Very Weak
-* Weak
-* Moderate
-* Strong
-* Very Strong
-
-The score is a heuristic and should not be interpreted as a formal security assessment.
-
-### Breach Exposure Check
-
-The optional breach check uses the **Have I Been Pwned Pwned Passwords API**.
-
-The process is:
-
-```text
-Password
-   ↓
-SHA-1 hash generated locally
-   ↓
-First 5 characters of hash extracted
-   ↓
-5-character prefix sent to HIBP
-   ↓
-Matching hash suffixes returned
-   ↓
-Comparison performed locally
-   ↓
-Breach result displayed
-```
-
-The complete password is never sent to the HIBP API.
-
-The complete SHA-1 hash is also not sent.
-
-### Password Generator
-
-infernicated includes a configurable password generator supporting:
-
-* Uppercase letters
-* Lowercase letters
-* Numbers
-* Symbols
-* Custom password length
-
-The generator uses the browser's `crypto.getRandomValues()` API rather than `Math.random()` for security-sensitive random number generation.
-
-Generated passwords are not intentionally stored by the application.
-
-### Accessibility
-
-The interface includes:
-
-* Semantic HTML
-* Keyboard navigation
-* Visible focus states
-* Responsive layouts
-* Reduced-motion support
-
-### Responsive Design
-
-The application uses CSS Grid and responsive CSS to adapt the interface between desktop and mobile layouts.
-
-***
-
-# Privacy & Security
+## Privacy & Security
 
 infernicated was designed around minimizing the amount of sensitive information leaving the browser.
 
@@ -116,10 +37,10 @@ The main password analysis runs entirely client-side.
 
 The application does not require a database or backend to calculate:
 
-* Password composition
-* Patterns
-* Approximate entropy
-* Security score
+- Password composition
+- Patterns
+- Approximate entropy
+- Security score
 
 ### Breach checking
 
@@ -143,9 +64,7 @@ infernicated does **not** use SHA-1 as a password-storage mechanism.
 
 If the breach-check request fails or the API is unavailable, the application reports that the breach check is unavailable rather than treating the password as safe.
 
-***
-
-# How It Works
+## How It Works
 
 The application consists entirely of client-side code.
 
@@ -181,46 +100,40 @@ Final security report
 
 The majority of the application works completely offline. An internet connection is only required for the optional breach exposure check.
 
-***
-
-# Tech Stack
+## Tech Stack
 
 ![JavaScript](https://skillicons.dev/icons?i=js) ![HTML](https://skillicons.dev/icons?i=html) ![CSS](https://skillicons.dev/icons?i=css)
 
-* **HTML5** - page structure and semantic markup
-* **CSS3** - responsive layout, CSS Grid, custom properties, animations, and styling
-* **Vanilla JavaScript (ES2017+)** - application logic and DOM interaction
-* **Web Crypto API** - cryptographic hashing and secure random number generation
-* **Fetch API** - communication with the HIBP breach-check endpoint
-* **Have I Been Pwned Pwned Passwords API** - breach exposure lookup
-* **Inter** - interface typography
-* **IBM Plex Mono** - monospace/technical typography
+- **HTML5** - page structure and semantic markup
+- **CSS3** - responsive layout, CSS Grid, custom properties, animations, and styling
+- **Vanilla JavaScript (ES2017+)** - application logic and DOM interaction
+- **Web Crypto API** - cryptographic hashing and secure random number generation
+- **Fetch API** - communication with the HIBP breach-check endpoint
+- **Have I Been Pwned Pwned Passwords API** - breach exposure lookup
+- **Inter** - interface typography
+- **IBM Plex Mono** - monospace/technical typography
 
 There is:
 
-* No frontend framework
-* No backend
-* No database
-* No build step
-* No external JavaScript framework dependencies
+- No frontend framework
+- No backend
+- No database
+- No build step
+- No external JavaScript framework dependencies
 
-***
+## Why This Stack
 
-# Why This Stack
+- **Vanilla JavaScript, no framework** - the app is a single-page analyzer with no routing or state management, so a framework would add build tooling without adding value.
+- **No backend or database** - analysis runs in the browser by design, so there is nothing server-side to host or maintain.
+- **Web Crypto API** - used for SHA-1 hashing and for `crypto.getRandomValues()` in the password generator, so hashing and randomness are handled by the browser's own secure primitives.
+- **Have I Been Pwned API with k-anonymity** - allows an optional breach check where only a five-character hash prefix leaves the browser, keeping the password and its full hash local.
+- **CSS Grid and custom properties** - the responsive desktop and mobile layouts are built with plain CSS, so no UI library is needed.
+- **Inter and IBM Plex Mono** - clean interface typography with a monospace font for technical output like hashes and scores.
 
-* **Vanilla JavaScript, no framework** - the app is a single-page analyzer with no routing or state management, so a framework would add build tooling without adding value.
-* **No backend or database** - analysis runs in the browser by design, so there is nothing server-side to host or maintain.
-* **Web Crypto API** - used for SHA-1 hashing and for `crypto.getRandomValues()` in the password generator, so hashing and randomness are handled by the browser's own secure primitives.
-* **Have I Been Pwned API with k-anonymity** - allows an optional breach check where only a five-character hash prefix leaves the browser, keeping the password and its full hash local.
-* **CSS Grid and custom properties** - the responsive desktop and mobile layouts are built with plain CSS, so no UI library is needed.
-* **Inter and IBM Plex Mono** - clean interface typography with a monospace font for technical output like hashes and scores.
-
-***
-
-# Project Structure
+## Project Structure
 
 ```text
-infernicated/
+Infernicated/
 │
 ├── index.html
 ├── style.css
@@ -229,6 +142,8 @@ infernicated/
 ├── assets/
 │   └── preview.png
 │
+├── privacy.html
+├── LICENSE
 └── README.md
 ```
 
@@ -244,35 +159,40 @@ Contains the visual design, responsive layouts, typography, animations, and acce
 
 Contains the application logic, including:
 
-* Password analysis
-* Pattern detection
-* Entropy calculation
-* Security scoring
-* SHA-1 hashing
-* HIBP API communication
-* Breach result processing
-* Password generation
-* DOM updates
-* Event handling
+- Password analysis
+- Pattern detection
+- Entropy calculation
+- Security scoring
+- SHA-1 hashing
+- HIBP API communication
+- Breach result processing
+- Password generation
+- DOM updates
+- Event handling
 
-***
+## Quick Start
 
-# Getting Started
+### Prerequisites
 
-No build tools are required.
+- A modern browser (Chrome, Firefox, Safari, or Edge)
+- Internet access is only required for the optional breach exposure check; the local analysis works offline
+- No build tools or installation are required
 
-### 1. Clone the repository
+### Installation
+
+1. Clone the repository:
 
 ```bash
-git clone <repository-url>
-cd infernicated
+git clone https://github.com/p3xz/Infernicated.git
 ```
 
-### 2. Run locally
+2. Move into the project folder:
 
-You can open `index.html` directly in a browser.
+```bash
+cd Infernicated
+```
 
-Alternatively, use a local development server:
+3. Open `index.html` directly in a browser, or serve it with a local development server:
 
 ```bash
 npx serve .
@@ -284,41 +204,39 @@ or:
 python3 -m http.server 8080
 ```
 
-### 3. Open the application
+4. Open the local URL provided by your development server in your browser.
 
-Open the local URL provided by your development server.
+## Usage
 
-The local password analysis works without an internet connection.
+Serve the project locally and open the provided URL:
 
-The breach exposure feature requires internet access to communicate with the Have I Been Pwned API.
+```bash
+npx serve .
+```
 
-***
+Then type a password into the analyzer input to get the local analysis, security score, approximate entropy, and security report. Enable the optional breach check to look up exposure against the Have I Been Pwned database (requires internet access).
 
-# Limitations
+## Limitations
 
 infernicated is an educational project and its results have limitations.
 
-* The entropy calculation is an approximation.
-* The security score is heuristic rather than a formal security measurement.
-* Pattern detection cannot identify every possible password-guessing strategy.
-* A password not found in the HIBP database does not guarantee that it has never been compromised.
-* SHA-1 is used because it is the hash format required by the HIBP Pwned Passwords API, not as a recommendation for password storage.
-* The application is not intended to replace professional security auditing or password-management software.
+- The entropy calculation is an approximation.
+- The security score is heuristic rather than a formal security measurement.
+- Pattern detection cannot identify every possible password-guessing strategy.
+- A password not found in the HIBP database does not guarantee that it has never been compromised.
+- SHA-1 is used because it is the hash format required by the HIBP Pwned Passwords API, not as a recommendation for password storage.
+- The application is not intended to replace professional security auditing or password-management software.
 
-***
+## Roadmap
 
-# Roadmap
+- [ ] Add automated tests for scoring and pattern detection
+- [ ] Expand the common-password dataset
+- [ ] Improve password-pattern analysis
+- [ ] Explore more advanced password-strength estimation techniques
+- [ ] Add a downloadable analysis report
+- [ ] Add a theme toggle while maintaining the existing visual design
 
-* [ ] Add automated tests for scoring and pattern detection
-* [ ] Expand the common-password dataset
-* [ ] Improve password-pattern analysis
-* [ ] Explore more advanced password-strength estimation techniques
-* [ ] Add a downloadable analysis report
-* [ ] Add a theme toggle while maintaining the existing visual design
-
-***
-
-# Security Disclaimer
+## Security Disclaimer
 
 infernicated provides an **educational estimate** of password strength and known breach exposure.
 
@@ -326,9 +244,15 @@ A strong score or a negative breach result does not guarantee that a password is
 
 The application should not be treated as a professional cybersecurity audit, authentication system, or legal/security advice.
 
-***
+## Contributing
 
-# Credits
+Contributions are welcome. Open an issue to discuss a change first, then submit a pull request with a clear description of what you changed and why.
+
+## License
+
+This project is distributed under the MIT License. See the `LICENSE` file for details.
+
+## Credits
 
 ### Main Author
 
@@ -346,9 +270,3 @@ Instagram: [@nam7sh](https://instagram.com/nam7sh)
 | Harshiv Patel | Co-author / Contributor      | [@Harshiv-6967](https://github.com/Harshiv-6967)       |
 | Lubna Nawaz   | Co-author / Contributor      | [@Lubnanawaz](https://github.com/Lubnanawaz)           |
 | Rushda Khan   | Co-author / Contributor      | [@rushdakhan-byte](https://github.com/rushdakhan-byte) |
-
-***
-
-## License
-
-This project is distributed under the MIT License. See the `LICENSE` file for details.
