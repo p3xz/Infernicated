@@ -5,6 +5,8 @@
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
+![Preview](assets/preview.png)
+
 ## About
 
 infernicated is a client-side password security analyzer designed to help users understand the characteristics and potential exposure of a password.
