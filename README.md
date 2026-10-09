@@ -1,6 +1,6 @@
 # Infernicated
 
-> A client-side password security analyzer that evaluates password length, composition, patterns, entropy, and known breach exposure entirely in the browser, built to show that useful password analysis does not require sending sensitive input to a server.
+> A client-side password security analyzer that evaluates password length, composition, patterns, entropy, and known breach exposure. Core analysis runs locally in the browser; the optional breach check uses k-anonymity so your password never leaves your device.
 
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
@@ -11,9 +11,9 @@
 
 infernicated is a client-side password security analyzer designed to help users understand the characteristics and potential exposure of a password.
 
-It evaluates password length, character composition, common patterns, approximate entropy, and known breach exposure. The application does not have a backend or database, and password analysis is performed locally in the browser.
+It evaluates password length, character composition, common patterns, approximate entropy, and known breach exposure. The application does not have a backend or database. Core analysis runs locally in the browser; only the optional breach check makes a network call, using k-anonymity so the password itself never leaves your device.
 
-Built as a personal project to show that useful password analysis does not require sending sensitive input to a server.
+Built as a personal project to show that useful password analysis does not require trusting a server with sensitive input.
 
 Built in August 2026.
 
